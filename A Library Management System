@@ -1,0 +1,162 @@
+#include <stdio.h>
+#include <string.h>
+
+char Books[100] [100];
+char Users[50][100];
+int Total_Books = 0;
+int Total_Users = 0;
+                    //Show books
+void Books_List(){
+    if(Total_Books == 0){
+        printf("No books available!\n");
+        return;
+    }
+    else{
+        printf("\nBook List : \n");
+        for(int i=0;i<Total_Books;i++){
+            printf("%d.%s\n",i+1,Books[i]);
+        }
+    }
+}
+
+                    //Add books
+void Add_Books(){
+    if(Total_Books>=100){
+        printf("\nLibrary is full");
+        return;
+    }
+    else{
+        printf("\nEnter book's name : ");
+        scanf(" %[^\n]",Books[Total_Books]); //To read full line
+        Total_Books++;
+        printf("\nBook added successfully\n");
+    }
+}
+                        //Remove book
+void Remove_Books(){
+    int index;
+    Books_List();
+    if(Total_Books == 0){
+        return;
+    }
+    else{
+        printf("\nEnter Book's number to remove : ");
+        scanf("%d",&index);
+        if(index < 1 || index > Total_Books){
+            printf("\nInvalid number! See carefully book's number and try again!");
+            return;
+        }
+        else{
+            for(int i=index-1;i<Total_Books-1;i++){
+                strcpy(Books[i],Books[i+1]);
+            }
+            Total_Books--;
+            printf("\nBook removed successfully!\n");
+        }
+    }
+}
+                        //Search Book
+void Search_Book(){
+    char search[100];
+    int found = 0;
+    printf("\nEnter book name to search : ");
+    scanf(" %[^\n]",search);
+    for(int i=0;i<Total_Books;i++){
+        if(strstr(Books[i],search)){
+            printf("Found: %s\n",Books[i]);
+            found = 1;
+        }
+    }
+    if (!found)
+    {
+        printf("\nBook not found!\n");
+    }
+}
+
+                   //About User
+void User_List(){
+    if(Total_Users == 0){
+        printf("\nNo user available!\n");
+        return;
+    }
+    printf("\nUser List :\n");
+    for(int i=0;i<Total_Users;i++){
+        printf("%d.%s\n",i+1,Users[i]);
+    }
+}
+                    //Add User
+void Add_User(){
+    if(Total_Users >= 50){
+        printf("\nUser limit reached!\n");
+        return;
+    }
+    printf("\nEnter user name : ");
+    scanf(" %[^\n]",Users[Total_Users]);
+    Total_Users++;
+    printf("\nUser successfully added!\n");
+}
+                        //Remove User
+void Remove_User(){
+    int index;
+    User_List();
+    if(Total_Users == 0){
+        printf("\nNo user available!\n");
+        return;
+    }
+    else{
+        printf("\nEnter user number to remove : ");
+        scanf("%d",&index);
+        if(index<1 || index>Total_Users){
+            printf("\nInvalid user number! Try again!");
+            return;
+        }
+        else{
+            for(int i=index-1;i<Total_Users-1;i++){
+                strcpy(Users[i],Users[i+1]);
+            }
+            Total_Users--;
+            printf("\nUser removed successfully!\n");
+        }
+    }
+}
+int main(){
+    while (1)
+    {
+        printf("\n----------Library Management System-----------\n");
+        printf(" 1.Show books\n 2.Add books\n 3.Remove books\n 4.Search books\n 5.Show users\n 6.Add users\n 7.Remove users\n 8.Exit\n");
+        int choice;
+        printf("\nEnter choice : ");
+        scanf("%d",&choice);
+        getchar();
+        switch(choice){
+        case 1:
+            Books_List();
+            break;
+        case 2:
+            Add_Books();
+            break;
+        case 3:
+            Remove_Books();
+            break;
+        case 4:
+            Search_Book();
+            break;
+        case 5:
+            User_List();
+            break;
+        case 6:
+            Add_User();
+            break;
+        case 7:
+            Remove_User();
+            break;
+        case 8:
+            return 0;
+        default:
+            printf("\nWrong input ! Try again!\n");
+            break;
+        }
+    }
+    return 0;
+}
+                   
